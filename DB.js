@@ -24,3 +24,5 @@ let DB = {
     }
 
 }
+
+module.export.DB = DB;
