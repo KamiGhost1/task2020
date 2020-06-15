@@ -1,6 +1,5 @@
 const express = require('express');
 const fs = require('fs');
-const md5 = require('md5');
 const request = require('request');
 const bP = require('body-parser');
 const cP = require('cookie-parser');
@@ -30,14 +29,26 @@ app.use((req,res,next)=>{
 
 app.route('/')
     .get(async (req,res)=>{
-        res.sendFile(dirPub+'index.html');
+        if(req.cookies.id && req.cookies.token){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0].token === req.cookies.token){
+                res.sendFile(dirPub+'index.html');
+                res.status(200);
+                res.end;
+            }else {
+                res.redirect('/login');
+            }
+        }else{
+            res.redirect('/login');
+        }
+
     })
 app.route('/login')
     .get(async (req,res)=>{
         if(req.cookies.token && req.cookies.id){
             let token = await db.get_user_tokenData(req.cookies.id);
             if(token[0].token === req.cookies.token){
-                res.require('/');
+                res.redirect('/');
             }
             else{
                 res.sendFile(dirPub+'login.html')
@@ -51,14 +62,44 @@ app.route('/login')
         }
     })
     .post(async (req,res)=>{
-
+        let login = req.body.login;
+        let password = req.body.password;
+        let answer = await db.getUserInfo(login);
+        if(answer != null || answer!=''){
+            let id = answer[0].id;
+            let salt = answer[0].salt;
+            password = sub.hashing(password+salt);
+            answer = db.checkUserData(login,password);
+            if(answer!=null || answer!=''){
+                let token = sub.hashing(id+sub.getTime());
+                answer = await db.setToken(token,id);
+                if(answer!=null || answer!=''){
+                    res.cookie('id',id);
+                    res.cookie('token',token);
+                    res.status(200)
+                    res.end;
+                }else{
+                    res.status(400);
+                    res.send('error');
+                    res.end
+                }
+            }else{
+                res.send('incorrect data');
+                res.status(400);
+                res.end
+            }
+        }else{
+            res.send('user dont exist');
+            res.status(400)
+            res.end
+        }
     })
 app.route('/signup')
     .get( async (req,res)=>{
         if(req.cookies.token && req.cookies.id){
             let token = await db.get_user_tokenData(req.cookies.id);
             if(token[0].token === req.cookies.token){
-                res.require('/');
+                res.redirect('/');
             }
             else{
                 res.sendFile(dirPubr+'signup.html')
@@ -71,8 +112,56 @@ app.route('/signup')
             res.end;
         }
     })
+    .post(async (req,res)=>{
+        let login = req.body.login;
+        let pass = req.body.password1;
+        let answer = await db.getUserInfo(login)
+        if(answer != null || answer!=''){
+            res.send('this user exist');
+            res.status(400);
+            res.end
+        }else{
+            let salt = sub.hashing(sub.getTime());
+            pass = sub.hashing(pass+salt);
+            answer = await  db.signUpUser(login,pass,salt);
+            if(answer === null){
+                res.status(400)
+                res.send('error');
+                res.end;
+            }else{
+                res.send('ok');
+                res.status(200);
+                res.end;
+            }
+
+        }
+
+
+    })
+
+app.route('/logout')
+    .get(async (req,res)=>{
+        if(req.cookies.id){
+            db.dropToken(req.cookies.id);
+            res.status(200);
+            res.send('ok');
+            res.end;
+        }else{
+            res.redirect('/login');
+            res.end
+        }
+        }
+    )
+
+
 app.get('/scripts/main.js',(req,res)=>{
     res.sendFile(dir+'/scripts/main.js')
+})
+
+app.get('*',(req,res)=>{
+    res.sendFile(dirPub +'error.html')
+    res.status(404)
+    res.end
 })
 
 app.listen(port, (err) => {

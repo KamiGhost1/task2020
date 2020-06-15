@@ -5,7 +5,7 @@ class DB {
         host:'localhost',
         user:'root',
         password:'',
-        database:'treasurehunt',
+        database:'task',
         port:'3306'
     }
     connect() {
@@ -22,11 +22,32 @@ class DB {
             })
         })
     }
-    async get_user_tokenData(id){
-        return this.request('select * from users where id=?',id)
+    async dropToken(id){
+        let answer = await this.request('update users set token = ? where id = ?','',id);
+        return answer;
     }
-    async add_task(task){
-        let answer = await this.request('INSERT INTO `answers` (`answer`, `right_answer`) VALUES (?, 0)',task)
+    async setToken(token,id){
+        let answer = await this.request('update users set token = ? where id =?',token,id)
+        return answer;
+    }
+    async checkUserData(login,pass){
+        let answer = await this.request('select id from users where login = ? && pass=?',login,pass)
+        return answer;
+    }
+    async getUserInfo(login){
+        let answer = await this.request('select id,salt from users where login =?',login);
+        return answer;
+    }
+    async get_user_tokenData(id){
+        let answer = await this.request('select * from users where id=?',id)
+        return answer;
+    }
+    async add_task(name,task,id){
+        let answer = await this.request('INSERT INTO `tasks` (`name`, `task`, `user_id`, `status`) VALUES ( ?,?,?,?);',name,task,id);
+        return answer;
+    }
+    async signUpUser(login,pass,salt){
+        let answer = await this.request('INSERT INTO `users` (`login`, `pass`, `salt`) VALUES (?, ?, ?);',[login,pass,salt])
         return answer;
     }
 }
