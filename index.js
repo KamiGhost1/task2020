@@ -31,13 +31,19 @@ app.route('/')
     .get(async (req,res)=>{
         if(req.cookies.id && req.cookies.token){
             let token = await db.get_user_tokenData(req.cookies.id);
-            if(token[0].token === req.cookies.token){
-                res.sendFile(dirPub+'index.html');
-                res.status(200);
-                res.end;
-            }else {
-                res.redirect('/login');
+            if(token[0]!=undefined){
+                if(token[0].token === req.cookies.token){
+                    res.status(200);
+                    res.sendFile(dirPub+'index.html');
+                    res.end;
+                }else {
+                    res.redirect('/login');
+                }
+            }else{
+                res.status(401);
+                res.end
             }
+
         }else{
             res.redirect('/login');
         }
@@ -47,17 +53,23 @@ app.route('/login')
     .get(async (req,res)=>{
         if(req.cookies.token && req.cookies.id){
             let token = await db.get_user_tokenData(req.cookies.id);
-            if(token[0].token === req.cookies.token){
-                res.redirect('/');
+            if (token[0]!=undefined){
+                if(token[0].token === req.cookies.token){
+                    res.redirect('/');
+                }
+                else{
+                    res.status(400);
+                    res.sendFile(dirPub+'login.html')
+                    res.end
+                }
+            }else{
+                res.status(401);
+                res.end;
             }
-            else{
-                res.sendFile(dirPub+'login.html')
-                res.status(400);
-                res.end
-            }
+
         }else{
-            res.sendFile(dirPub+'login.html');
             res.status(200);
+            res.sendFile(dirPub+'login.html');
             res.end;
         }
     })
@@ -65,18 +77,19 @@ app.route('/login')
         let login = req.body.login;
         let password = req.body.password;
         let answer = await db.getUserInfo(login);
-        if(answer != null || answer!=''){
+        if(answer[0]!=undefined || answer==='' ){
             let id = answer[0].id;
             let salt = answer[0].salt;
             password = sub.hashing(password+salt);
-            answer = db.checkUserData(login,password);
-            if(answer!=null || answer!=''){
+            answer = await db.checkUserData(login,password);
+            if(answer[0]!=undefined){
                 let token = sub.hashing(id+sub.getTime());
                 answer = await db.setToken(token,id);
                 if(answer!=null || answer!=''){
                     res.cookie('id',id);
                     res.cookie('token',token);
                     res.status(200)
+                    res.send('ok')
                     res.end;
                 }else{
                     res.status(400);
@@ -84,13 +97,13 @@ app.route('/login')
                     res.end
                 }
             }else{
-                res.send('incorrect data');
                 res.status(400);
+                res.send('incorrect data');
                 res.end
             }
         }else{
-            res.send('user dont exist');
             res.status(400)
+            res.send('user dont exist');
             res.end
         }
     })
@@ -98,44 +111,55 @@ app.route('/signup')
     .get( async (req,res)=>{
         if(req.cookies.token && req.cookies.id){
             let token = await db.get_user_tokenData(req.cookies.id);
-            if(token[0].token === req.cookies.token){
-                res.redirect('/');
-            }
-            else{
-                res.sendFile(dirPubr+'signup.html')
-                res.status(400);
+            if(token[0]!=undefined){
+                if(token[0].token === req.cookies.token){
+                    res.redirect('/');
+                }
+                else{
+                    res.status(400);
+                    res.sendFile(dirPubr+'signup.html')
+                    res.end
+                }
+            }else{
+                res.status(401)
+                res.send('non auth')
                 res.end
             }
         }else{
-            res.sendFile(dirPub+'signup.html');
             res.status(200);
+            res.sendFile(dirPub+'signup.html');
             res.end;
         }
     })
     .post(async (req,res)=>{
         let login = req.body.login;
         let pass = req.body.password1;
-        let answer = await db.getUserInfo(login)
-        if(answer != null || answer!=''){
-            res.send('this user exist');
-            res.status(400);
-            res.end
+        let pass1 = req.body.password2;
+        if(pass!=pass1){
+                res.status(400);
+                res.send('passwords not equal');
+                res.end
         }else{
-            let salt = sub.hashing(sub.getTime());
-            pass = sub.hashing(pass+salt);
-            answer = await  db.signUpUser(login,pass,salt);
-            if(answer === null){
-                res.status(400)
-                res.send('error');
-                res.end;
+            let answer = await db.getUserInfo(login)
+            if(answer[0] != undefined){
+                res.status(400);
+                res.send('this user exist');
+                res.end
             }else{
-                res.send('ok');
-                res.status(200);
-                res.end;
+                let salt = sub.hashing(sub.getTime());
+                pass = sub.hashing(pass+salt);
+                answer = await  db.signUpUser(login,pass,salt);
+                if(answer === undefined || answer===null || answer ===''){
+                    res.status(400)
+                    res.send('error');
+                    res.end;
+                }else{
+                    res.status(200);
+                    res.send('ok');
+                    res.end;
+                }
             }
-
         }
-
 
     })
 
@@ -159,8 +183,8 @@ app.get('/scripts/main.js',(req,res)=>{
 })
 
 app.get('*',(req,res)=>{
-    res.sendFile(dirPub +'error.html')
     res.status(404)
+    res.sendFile(dirPub +'error.html')
     res.end
 })
 
