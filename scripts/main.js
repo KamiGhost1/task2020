@@ -155,11 +155,9 @@ function getUrlVars()
 {
     return window.location.href.slice(window.location.href.indexOf('?')).split(/[&?]{1}[\w\d]+=/);
 }
-function addTask(name,task) {
-    if(name===null && task ===null){
-        name = document.getElementById('name').value
-        task = document.getElementById('task').value
-    }
+function addTask() {
+    let name = document.getElementById('name').value
+    let task = document.getElementById('task').value
     $.ajax({
         type:'POST',
         url:'/task/add',
