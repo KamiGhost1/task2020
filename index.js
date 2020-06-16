@@ -197,5 +197,5 @@ app.listen(port, (err) => {
     if (err) {
         return console.log('something bad happened', err)
     }
-    console.log(chalk.yellow(`server start on ${port}`))
+    console.log(`server start on ${port}`)
 })
