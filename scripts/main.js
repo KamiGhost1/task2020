@@ -61,6 +61,7 @@ let addSubtask = function(){
             data:{subtask:subtask,id:task_id},
             success:()=>{
                 alert('Подзадача добавлена')
+                window.location.href = window.location.href
             },
             error:()=>{
                 alert('что-то пошло не так')
@@ -187,6 +188,7 @@ let changeName = function(id){
             data:{type:'name',name:name,id:id},
             success:()=>{
                 alert('Имя изменено!')
+                window.location.href = window.location.href
             },
             error:()=>{
                 alert('что-то пошло не так')
