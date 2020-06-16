@@ -174,8 +174,10 @@ function addTask() {
                 alert('что-то пошло не так');
             }
         })
+    }else{
+        alert('ошибка. введите данные!');
     }
-    alert('ошибка. введите данные!');
+
 }
 
 function deleteTask(){
