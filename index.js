@@ -214,7 +214,7 @@ app.route('/task/add')
             let token = await db.get_user_tokenData(req.cookies.id);
             if(token[0] != undefined){
                 if(token[0].token === req.cookies.token){
-                    res.sendFile(dirPub +'addTask.html');
+                    res.sendFile(dirPub +'addtask.html');
                     res.end;
                 }else{
                     res.status(400)

@@ -48,19 +48,23 @@ let changeTask = function(id){
 
 let addSubtask = function(){
     let subtask = prompt('Введи подзадачу')
-    let task_id = getUrlVars()
-    task_id = task_id[1];
-    $.ajax({
-        type:'POST',
-        url:'/task/addSubtask',
-        data:{subtask:subtask,id:task_id},
-        success:()=>{
-            alert('Подзадача добавлена')
-        },
-        error:()=>{
-            alert('что-то пошло не так')
-        }
-    })
+    if(subtask!=''){
+        let task_id = getUrlVars()
+        task_id = task_id[1];
+        $.ajax({
+            type:'POST',
+            url:'/task/addSubtask',
+            data:{subtask:subtask,id:task_id},
+            success:()=>{
+                alert('Подзадача добавлена')
+            },
+            error:()=>{
+                alert('что-то пошло не так')
+            }
+        })
+    }else{
+        alert('отменено')
+    }
 }
 
 let renderEdit = function () {
@@ -158,17 +162,20 @@ function getUrlVars()
 function addTask() {
     let name = document.getElementById('name').value
     let task = document.getElementById('task').value
-    $.ajax({
-        type:'POST',
-        url:'/task/add',
-        data:{name:name,task:task},
-        success:()=>{
-            window.location.href ='/'
-        },
-        error:()=>{
-            alert('что-то пошло не так');
-        }
-    })
+    if(name!='' && task!=''){
+        $.ajax({
+            type:'POST',
+            url:'/task/add',
+            data:{name:name,task:task},
+            success:()=>{
+                window.location.href ='/'
+            },
+            error:()=>{
+                alert('что-то пошло не так');
+            }
+        })
+    }
+    alert('ошибка. введите данные!');
 }
 
 function deleteTask(){
