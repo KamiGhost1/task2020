@@ -23,7 +23,7 @@ app.use(cP())
 app.use(bP.urlencoded({extended:false}))
 app.use(bP.json())
 app.use((req,res,next)=>{
-    console.log(chalk.green(sub.getTime())+' '+chalk.blue(req.method)+' '+chalk.red(req.url))
+    console.log((sub.getTime())+' '+(req.method)+' '+(req.url))
     next()
 })
 
