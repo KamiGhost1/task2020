@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 14 2020 г., 20:24
+-- Время создания: Июн 16 2020 г., 12:52
 -- Версия сервера: 10.4.10-MariaDB
 -- Версия PHP: 7.3.12
 
@@ -30,10 +30,11 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `subtask`;
 CREATE TABLE IF NOT EXISTS `subtask` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `task_id` int(11) NOT NULL,
   `task` varchar(100) COLLATE utf16_bin NOT NULL,
   `status` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`task_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 -- --------------------------------------------------------
@@ -67,7 +68,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `token` varchar(64) COLLATE utf16_bin DEFAULT NULL,
   `role` varchar(10) COLLATE utf16_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `login`, `pass`, `salt`, `token`, `role`) VALUES
+(5, 'heh', 'b436ccc771fa5b4a860524b808e42724', '137e3b84487b59946f8c157266d0ab21', '3c1b47af1dd7484c27c857621ab0072b', NULL),
+(10, 'hah', '67737ece982da00cb30d41456db2506f', '01cb52a133b87cc4635aa9e5c119a609', '', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

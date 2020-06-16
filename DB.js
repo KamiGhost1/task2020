@@ -3,8 +3,8 @@ let mysql = require('mysql2');
 class DB {
     config={
         host:'localhost',
-        user:'root',
-        password:'',
+        user:'server',
+        password:'server',
         database:'task',
         port:'3306'
     }
