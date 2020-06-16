@@ -1,14 +1,14 @@
 let mysql = require('mysql2');
 
 class DB {
-    config={
-        host:'localhost',
-        user:'server',
-        password:'server',
-        database:'task',
-        port:'3306'
-    }
     connect() {
+        this.config = {
+            host:'localhost',
+            user:'server',
+            password:'server',
+            database:'task',
+            port:'3306'
+        }
         this.connection = mysql.createConnection(this.config);
     }
     request(sql,values){
