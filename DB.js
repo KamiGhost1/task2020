@@ -78,6 +78,28 @@ class DB {
         let answer = await this.request('INSERT INTO `subtask` (`task_id`, `task`, `status`) VALUES (?,?,?);',[task_id,task,0])
         return answer
     }
+    async deleteTask(id){
+        let answer = await this.getSubtaskInfo(id);
+        if(answer[0]!=undefined){
+            for(let i=0;i<answer.length;i++){
+                this.deleteSubtask(answer[i].id);
+            }
+        }
+        answer = await this.request('delete from tasks where id=?',[id])
+        return answer;
+    }
+    async deleteSubtask(id){
+        let answer = await this.request('delete from subtask where id=?',[id])
+        return answer
+    };
+    async changeSubStatus(id,status){
+        let answer = await this.request('update subtask set status = ? where id = ?',[status,id]);
+        return answer;
+    }
+    async changeSubtask(id,task){
+        let answer = await this.request('update subtask set task = ? where id = ?',[task,id]);
+        return answer;
+    }
 }
 
 module.exports.DB = DB;

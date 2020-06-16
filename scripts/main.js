@@ -38,6 +38,7 @@ let changeTask = function(id){
             data:{type:'task',task:task,id:id},
             success:()=>{
                 alert('Задача изменена!')
+                window.location.href = window.location.href
             },
             error:()=>{
                 alert('что-то пошло не так')
@@ -79,9 +80,8 @@ let renderEdit = function () {
         type:'GET',
         url:'/task/getInfo?id='+params.id,
         success:(data)=>{
-            console.log(data);
             document.getElementById('taskText').innerText = data.task.task
-            document.getElementById('task').setAttribute('onclick',`editChangeQuestion(${data.task.id})`)
+            document.getElementById('task').setAttribute('onclick',`changeTask(${data.task.id})`)
             data.subtasks.forEach((el)=>{
                 html+=`<tr><td onclick="editSubtask(${el.id})">${el.task}</td>
                 <td onclick="editSubtaskStatus(${el.id},${el.status})">${statusRender(el.status)}</td>
@@ -95,11 +95,86 @@ let renderEdit = function () {
     })
 }
 
-let deleteSubtask = function(id){}
+function deleteTask(){
+    let params = getUrlVars();
+    $.ajax({
+        type:'POST',
+        url:'/task/edit',
+        data:{type:'delete',id:params[1]},
+        success:()=>{
+            alert('удалено!')
+            window.location.href='/'
+        },
+        error:()=>{
+            alert('что-то пошло не так')
+        }
+    })
+}
 
-let editSubtaskStatus = function(id){}
+let deleteSubtask = function(id){
+    $.ajax({
+        type:'POST',
+        url:'/task/edit',
+        data:{type:'deleteSub', id:id},
+        success:()=>{
+            alert('удалено!')
+            window.location.href = window.location.href
+        },
+        error:()=>{
+            alert('что-то пошло не так')
+        }
+    })
+}
+
+let editSubtaskStatus = function(id,status){
+    if(status=='1'){
+        $.ajax({
+            type:'POST',
+            url:'/task/edit',
+            data:{type:'SubStatus',id:id,status:0},
+            success:()=>{
+                alert('изменено!')
+                window.location.href = window.location.href
+            },
+            error:()=>{
+                alert('что-то пошло не так')
+            }
+        })
+    }else{
+        $.ajax({
+            type:'POST',
+            url:'/task/edit',
+            data:{type:'SubStatus',id:id,status:1},
+            success:()=>{
+                alert('изменено!')
+                window.location.href = window.location.href
+            },
+            error:()=>{
+                alert('что-то пошло не так')
+            }
+        })
+    }
+
+}
 
 let editSubtask = function(id){
+    let task = prompt('Введите новую подзадачу');
+    if (task===null){
+        alert('отменено')
+    }else{
+        $.ajax({
+            type:'POST',
+            url:'/task/edit',
+            data:{type:'SubTask',id:id,task:task},
+            success:()=>{
+                alert('изменено!')
+                window.location.href = window.location.href
+            },
+            error:()=>{
+                alert('что-то пошло не так')
+            }
+        })
+    }
 
 }
 
@@ -135,7 +210,7 @@ let changeStatus = function(id,status){
             url:'/task/change',
             data:{type:'status',status:0,id:id},
             success:()=>{
-
+                window.location.href = window.location.href
             },
             error:()=>{
                 alert('что-то пошло не так')
@@ -147,7 +222,7 @@ let changeStatus = function(id,status){
             url:'/task/change',
             data:{type:'status',status:1,id:id},
             success:()=>{
-
+                window.location.href = window.location.href
             },
             error:()=>{
                 alert('что-то пошло не так')
@@ -178,9 +253,5 @@ function addTask() {
     }else{
         alert('ошибка. введите данные!');
     }
-
-}
-
-function deleteTask(){
 
 }

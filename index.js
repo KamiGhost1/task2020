@@ -332,6 +332,95 @@ app.route('/task/edit')
             res.end
         }
     })
+    .post(async (req,res)=>{
+        if(req.cookies.token && req.cookies.id){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0] != undefined){
+                if(token[0].token === req.cookies.token){
+                    let answer ='';
+                    switch (req.body.type) {
+                        case 'delete':
+                            answer = await db.deleteTask(req.body.id)
+                            if(answer!=null){
+                                res.status(200);
+                                res.send('task deleted')
+                                res.end
+                            }else{
+                                res.status(400)
+                                res.send('error')
+                                res.end
+                            }
+                            break;
+                        case 'deleteSub':
+                            answer = await db.deleteSubtask(req.body.id)
+                            if(answer!=null){
+                                res.status(200);
+                                res.send('subtask deleted')
+                                res.end
+                            }else{
+                                res.status(400)
+                                res.send('error')
+                                res.end
+                            }
+                            break;
+                        case 'SubTask':
+                            answer = await db.changeSubtask(req.body.id,req.body.task)
+                            if(answer){
+                                res.status(200);
+                                res.send('ok');
+                                res.end
+                            }else{
+                                res.status(400)
+                                res.send('error')
+                                res.end
+                            }
+                            break;
+                        case 'SubStatus':
+                            answer = await db.changeSubStatus(req.body.id,req.body.status)
+                            if(answer){
+                                res.status(200);
+                                res.send('ok');
+                                res.end
+                            }else{
+                                res.status(400)
+                                res.send('error')
+                                res.end
+                            }
+                            break;
+                        case 'SubDelete':
+                            answer = await db.deleteSubtask(req.body.id)
+                            if(answer){
+                                res.status(200);
+                                res.send('ok');
+                                res.end
+                            }else{
+                                res.status(400)
+                                res.send('error')
+                                res.end
+                            }
+                            break;
+                        case 'name':
+                            answer = await db.changeTask(req.body.id,req.body.task)
+                            res.status(200)
+                            res.send('ok')
+                            break;
+                    }
+                }else{
+                    res.status(400)
+                    res.send('bad token');
+                    res.end
+                }
+            }else{
+                res.status(400);
+                res.send('incorrect data');
+                res.end
+            }
+        }else{
+            res.status(401)
+            res.send('non auth')
+            res.end
+        }
+    })
 
 app.route('/task/getInfo')
     .get(async (req,res)=>{
