@@ -395,10 +395,17 @@ app.route('/task/addSubtask')
             let token = await db.get_user_tokenData(req.cookies.id);
             if(token[0] != undefined){
                 if(token[0].token === req.cookies.token){
-                    db.addSubtask(req.body.id,req.body.subtask)
-                    res.status(200)
-                    res.send('ok')
-                    res.end
+                    if(req.body.subtask != '' || req.body.subtask != null){
+                        db.addSubtask(req.body.id,req.body.subtask)
+                        res.status(200)
+                        res.send('ok')
+                        res.end
+                    }else{
+                        res.status(400)
+                        res.send('bad subtask')
+                        res.end
+                    }
+
                 }else{
                     res.status(400)
                     res.send('bad token');
