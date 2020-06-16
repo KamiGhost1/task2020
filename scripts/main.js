@@ -48,7 +48,10 @@ let changeTask = function(id){
 
 let addSubtask = function(){
     let subtask = prompt('Введи подзадачу')
-    if(subtask!=''){
+    if(subtask===null){
+        alert('отменено')
+    }else{
+        console.log(subtask);
         let task_id = getUrlVars()
         task_id = task_id[1];
         $.ajax({
@@ -62,8 +65,6 @@ let addSubtask = function(){
                 alert('что-то пошло не так')
             }
         })
-    }else{
-        alert('отменено')
     }
 }
 
