@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f73231a1-bb03-41b5-9c61-208bf108c88c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/addtask.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB.js" beforeDir="false" afterPath="$PROJECT_DIR$/DB.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +21,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -37,6 +42,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../thunt" />
@@ -61,7 +67,7 @@
       <workItem from="1592151696665" duration="4113000" />
       <workItem from="1592161196725" duration="14337000" />
       <workItem from="1592221355547" duration="14773000" />
-      <workItem from="1592309473961" duration="2544000" />
+      <workItem from="1592309473961" duration="12364000" />
     </task>
     <servers />
   </component>
@@ -69,10 +75,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="726" y="311" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1592159146385">
+    <state x="726" y="311" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1592316757047">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="726" y="311" key="#com.intellij.fileTypes.FileTypeChooser/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592159146385" />
+    <state x="726" y="311" key="#com.intellij.fileTypes.FileTypeChooser/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592316757047" />
     <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1592222176593">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

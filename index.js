@@ -76,6 +76,7 @@ app.route('/login')
     })
     .post(async (req,res)=>{
         let login = req.body.login;
+        login = login.toLowerCase()
         let password = req.body.password;
         let answer = await db.getUserInfo(login);
         if(answer[0]!=undefined || answer==='' ){
@@ -134,6 +135,7 @@ app.route('/signup')
     })
     .post(async (req,res)=>{
         let login = req.body.login;
+        login = login.toLowerCase()
         let pass = req.body.password1;
         let pass1 = req.body.password2;
         if(pass!=pass1){
@@ -179,9 +181,240 @@ app.route('/logout')
     )
 
 // ---------------------------------------------------------------------------------------------------------------------
+app.route('/task/get')
+    .get(async (req,res)=>{
+        if(req.cookies.token && req.cookies.id){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0] != undefined){
+                if(token[0].token === req.cookies.token){
+                    let answer = await db.getTask(req.cookies.id);
+                    res.send(answer);
+                    res.end
+                }else{
+                    res.status(400)
+                    res.send('bad token');
+                    res.end
+                }
+            }else{
+                res.status(400);
+                res.send('incorrect data');
+                res.end
+            }
+        }else{
+            res.status(401)
+            res.send('non auth')
+            res.end
+        }
+    })
 
 
+app.route('/task/add')
+    .get(async (req,res)=>{
+        if(req.cookies.token && req.cookies.id){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0] != undefined){
+                if(token[0].token === req.cookies.token){
+                    res.sendFile(dirPub +'addTask.html');
+                    res.end;
+                }else{
+                    res.status(400)
+                    res.send('bad token');
+                    res.end
+                }
+            }else{
+                res.status(400);
+                res.send('incorrect data');
+                res.end
+            }
+        }else{
+            res.status(401)
+            res.send('non auth')
+            res.end
+        }
+    })
+    .post(async (req,res)=>{
+        if(req.cookies.token && req.cookies.id){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0] != undefined){
+                if(token[0].token === req.cookies.token){
+                    let name = req.body.name;
+                    let task = req.body.task;
+                    let userId = req.cookies.id;
+                    let answer = await db.addTask(name,task,userId);
+                    if(answer != null || answer != ''){
+                        res.status(200)
+                        res.send('ok');
+                        res.end
+                    }else{
+                        res.status(500)
+                        res.send('server error')
+                        res.end
+                    }
+                }else{
+                    res.status(400)
+                    res.send('bad token');
+                    res.end
+                }
+            }else{
+                res.status(400);
+                res.send('incorrect data');
+                res.end
+            }
+        }else{
+            res.status(401)
+            res.send('non auth')
+            res.end
+        }
+    })
 
+
+app.route('/task/change')
+    .post(async (req,res)=>{
+        if(req.cookies.token && req.cookies.id){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0] != undefined){
+                if(token[0].token === req.cookies.token){
+                    let answer = '';
+                    switch (req.body.type) {
+                        case 'status':
+                            answer = await db.changeStatus(req.body.id,req.body.status);
+                            res.status(200)
+                            res.send('ok')
+                            break;
+                        case 'name':
+                            answer = await db.changeName(req.body.id,req.body.name)
+                            res.status(200)
+                            res.send('ok')
+                            break;
+                        case 'task':
+                            answer = await db.changeTask(req.body.id,req.body.task)
+                            res.status(200)
+                            res.send('ok')
+                            break;
+                    }
+                }else{
+                    res.status(400)
+                    res.send('bad token');
+                    res.end
+                }
+            }else{
+                res.status(400);
+                res.send('incorrect data');
+                res.end
+            }
+        }else{
+            res.status(401)
+            res.send('non auth')
+            res.end
+        }
+    })
+
+app.route('/task/edit')
+    .get(async (req,res)=>{
+        if(req.cookies.token && req.cookies.id){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0] != undefined){
+                if(token[0].token === req.cookies.token){
+                    res.sendFile(dirPub+'editTask.html');
+                }else{
+                    res.status(400)
+                    res.send('bad token');
+                    res.end
+                }
+            }else{
+                res.status(400);
+                res.send('incorrect data');
+                res.end
+            }
+        }else{
+            res.status(401)
+            res.send('non auth')
+            res.end
+        }
+    })
+
+app.route('/task/getInfo')
+    .get(async (req,res)=>{
+        if(req.cookies.token && req.cookies.id){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0] != undefined){
+                if(token[0].token === req.cookies.token){
+                    let task = await db.getTaskInfo(req.query.id)
+                    if(task[0]!=undefined){
+                        let subtask = await db.getSubtaskInfo(task[0].id)
+                        res.status(200)
+                        res.send({task:task[0],subtasks:subtask})
+                        res.end
+                    }else{
+                        res.status(400)
+                        res.send('task not found');
+                        res.end
+                    }
+                }else{
+                    res.status(400)
+                    res.send('bad token');
+                    res.end
+                }
+            }else{
+                res.status(400);
+                res.send('incorrect data');
+                res.end
+            }
+        }else{
+            res.status(401)
+            res.send('non auth')
+            res.end
+        }
+    })
+    .post(async (req,res)=>{
+        if(req.cookies.token && req.cookies.id){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0] != undefined){
+                if(token[0].token === req.cookies.token){
+
+                }else{
+                    res.status(400)
+                    res.send('bad token');
+                    res.end
+                }
+            }else{
+                res.status(400);
+                res.send('incorrect data');
+                res.end
+            }
+        }else{
+            res.status(401)
+            res.send('non auth')
+            res.end
+        }
+    })
+
+app.route('/task/addSubtask')
+    .post(async (req,res)=>{
+        if(req.cookies.token && req.cookies.id){
+            let token = await db.get_user_tokenData(req.cookies.id);
+            if(token[0] != undefined){
+                if(token[0].token === req.cookies.token){
+                    db.addSubtask(req.body.id,req.body.subtask)
+                    res.status(200)
+                    res.send('ok')
+                    res.end
+                }else{
+                    res.status(400)
+                    res.send('bad token');
+                    res.end
+                }
+            }else{
+                res.status(400);
+                res.send('incorrect data');
+                res.end
+            }
+        }else{
+            res.status(401)
+            res.send('non auth')
+            res.end
+        }
+    })
 // ---------------------------------------------------------------------------------------------------------------------
 app.get('/scripts/main.js',(req,res)=>{
     res.sendFile(dir+'/scripts/main.js')
