@@ -4,11 +4,7 @@
     <list default="true" id="f73231a1-bb03-41b5-9c61-208bf108c88c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB.js" beforeDir="false" afterPath="$PROJECT_DIR$/DB.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/addtask.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/addtask.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/editTask.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/editTask.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test1.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/1.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/1.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/1.test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +30,7 @@
     <setting file="file://$PROJECT_DIR$/scripts/main.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/index.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/sub.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/test/2.test.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/test/1.test.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectId" id="1dJmiATfxvi6GR4elmbXjZ0GM6w" />
@@ -46,10 +43,13 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../thunt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\work\task2020\test" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\work\task2020\public" />
       <recent name="C:\work\task2020" />
@@ -69,7 +69,7 @@
       <workItem from="1592161196725" duration="14337000" />
       <workItem from="1592221355547" duration="14773000" />
       <workItem from="1592309473961" duration="19296000" />
-      <workItem from="1592374239329" duration="3276000" />
+      <workItem from="1592374239329" duration="4750000" />
     </task>
     <servers />
   </component>
@@ -89,9 +89,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592162763515" />
-    <state x="616" y="173" width="670" height="676" key="search.everywhere.popup" timestamp="1592171405440">
+    <state x="616" y="173" width="672" height="676" key="search.everywhere.popup" timestamp="1592378162603">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="173" width="670" height="676" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592171405440" />
+    <state x="616" y="173" width="672" height="676" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1592378162603" />
   </component>
 </project>

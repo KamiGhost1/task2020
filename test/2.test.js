@@ -26,20 +26,27 @@ describe("Создание пользователя",async()=>{
         assert.notEqual(answer[0],undefined)
     })
 })
-// describe('Проверка хэширования пароля',async ()=>{
-//     it('Хэш верный',async ()=>{
-//         let answer = await db.getUserInfo(user.login);
-//         let id = answer[0].id
-//         let salt = answer[0].salt
-//         answer = await db.get_user_tokenData(id);
-//         assert.equal(sub.hashing('pass'+salt),answer[0].pass)
-//     })
-// })
+
+describe('Создание задачи',async ()=>{
+    it('задача создана',async ()=>{
+        let id = await db.getUserInfo(user.login);
+        id = id[0].id
+        let answer = await db.addTask('unit test','test',id)
+        assert.notEqual(answer,undefined);
+    })
+    it('проверка задачи',async ()=>{
+        let id = await db.getUserInfo(user.login);
+        id = id[0].id
+        let answer = await db.getTask(id)
+        assert.notEqual(answer[0],undefined)
+    })
+})
+
 describe('Удаление пользователя',async ()=>{
     it('Удален',async ()=>{
         let answer = await db.getUserInfo(user.login);
         let id = answer[0].id
-        answer = await db.deleteJustUser(id)
+        answer = await db.deleteUser(id)
         assert.notEqual(answer,undefined)
     })
     it('проверка удаления',async ()=>{

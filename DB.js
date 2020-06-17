@@ -78,6 +78,10 @@ class DB {
         let answer = await this.request('INSERT INTO `subtask` (`task_id`, `task`, `status`) VALUES (?,?,?);',[task_id,task,0])
         return answer
     }
+    async listTask(user_id){
+        let answer = await this.request('select * from tasks where user_id =?',[user_id])
+        return answer
+    }
     async deleteTask(id){
         let answer = await this.getSubtaskInfo(id);
         if(answer[0]!=undefined){
@@ -103,6 +107,16 @@ class DB {
     async deleteJustUser(id){
         let answer = await this.request('delete from users where id=?',[id])
         return answer
+    }
+    async deleteUser(id){
+        let answer =await this.listTask(id);
+        if(answer[0]!=undefined){
+            for(let i=0;i<answer.length;i++){
+                this.deleteTask(answer[i].id)
+            }
+        }
+        let del = await this.deleteJustUser(id)
+        return del;
     }
 }
 
