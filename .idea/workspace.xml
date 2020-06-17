@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f73231a1-bb03-41b5-9c61-208bf108c88c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB.js" beforeDir="false" afterPath="$PROJECT_DIR$/DB.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/1.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/1.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/2.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/2.test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +29,6 @@
     <setting file="file://$PROJECT_DIR$/scripts/main.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/index.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/sub.js" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/test/2.test.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/test/1.test.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectId" id="1dJmiATfxvi6GR4elmbXjZ0GM6w" />
@@ -51,6 +49,7 @@
       <recent name="C:\work\task2020\test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\work\task2020\test" />
       <recent name="C:\work\task2020\public" />
       <recent name="C:\work\task2020" />
     </key>
@@ -69,7 +68,7 @@
       <workItem from="1592161196725" duration="14337000" />
       <workItem from="1592221355547" duration="14773000" />
       <workItem from="1592309473961" duration="19296000" />
-      <workItem from="1592374239329" duration="4750000" />
+      <workItem from="1592374239329" duration="6034000" />
     </task>
     <servers />
   </component>

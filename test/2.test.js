@@ -43,6 +43,7 @@ describe('Создание задачи',async ()=>{
 })
 
 describe('Удаление пользователя',async ()=>{
+
     it('Удален',async ()=>{
         let answer = await db.getUserInfo(user.login);
         let id = answer[0].id
