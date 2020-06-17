@@ -100,6 +100,10 @@ class DB {
         let answer = await this.request('update subtask set task = ? where id = ?',[task,id]);
         return answer;
     }
+    async deleteJustUser(id){
+        let answer = await this.request('delete from users where id=?',[id])
+        return answer
+    }
 }
 
 module.exports.DB = DB;
