@@ -42,7 +42,7 @@ describe('Создание задачи',async ()=>{
     })
 })
 
-describe('Удаление пользователя',async ()=>{
+describe('Удаление пользователя и задачи',async ()=>{
 
     it('Удален',async ()=>{
         let answer = await db.getUserInfo(user.login);
