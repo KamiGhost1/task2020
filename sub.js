@@ -13,6 +13,12 @@ let sub = {
         let time = `[${this.clocks(now.getHours())}:${this.clocks(now.getMinutes())}:${this.clocks(now.getSeconds())}]`
         return time
     },
+    /**
+     * функция производит двойное хаширование сообщение, которое в него поступает
+     * @function hashing
+     * @param {string} message - сообщение
+     * @return {string} hash
+    * */
     hashing(message){
         let hash = md5(md5(message));
         return hash;

@@ -1,3 +1,7 @@
+/**
+ * вункция для разлогина пользователя
+* */
+
 let loguot = async function() {
     console.log(document.cookie);
     await $.get('/logout',()=>{});
@@ -5,15 +9,26 @@ let loguot = async function() {
     window.location.href='/login'
 }
 
+/**
+ * Функция уничтожения куки файлов
+ * */
 let dropCookie = function(){
     document.cookie = 'token = ;max-age=-1'
     document.cookie = 'id = ;max-age=-1'
 }
 
+/**
+ * функция запрашивает таблицу у базы данных. в запросе передатся токен и id в куки
+ * */
 let getTask = function () {
     $.get('/task/get',viewTasks)
 }
 
+/**
+ * Функция рендерит таблицу
+ * @param {object} data - данные полученные от сервера
+ * @param {string} status - статус код
+ * */
 let viewTasks = function (data,status) {
     if(data[0]!=undefined){
         let table = document.getElementById('content');
@@ -25,10 +40,18 @@ let viewTasks = function (data,status) {
     }
 }
 
+/**
+ * Функция перехода к просмотру и редактированию задачи
+ * @param {string} id - id задачи
+ * */
 let viewTask = function (id){
     window.location.href ='/task/edit?id='+id;
 }
 
+/**
+ * Функция для измениея задачи
+ * @param {string} id - id задачи
+ * */
 let changeTask = function(id){
     let task = prompt('Введи новое задание')
     if(task){
@@ -47,6 +70,9 @@ let changeTask = function(id){
     }
 }
 
+/**
+ * функция добавления подзадачи
+ * */
 let addSubtask = function(){
     let subtask = prompt('Введи подзадачу')
     if(subtask===null){
@@ -70,6 +96,9 @@ let addSubtask = function(){
     }
 }
 
+/**
+ * функция рендера странички изменения задачи
+ * */
 let renderEdit = function () {
     let html = '';
     let table =  document.getElementById('content');
@@ -95,7 +124,9 @@ let renderEdit = function () {
         }
     })
 }
-
+/**
+ * функция удаления задачи
+ * */
 function deleteTask(){
     let params = getUrlVars();
     $.ajax({
@@ -111,7 +142,10 @@ function deleteTask(){
         }
     })
 }
-
+/**
+ * функция удаления подзадачи
+ * @param {string} id - id подзадачи
+ * */
 let deleteSubtask = function(id){
     $.ajax({
         type:'POST',
@@ -126,7 +160,11 @@ let deleteSubtask = function(id){
         }
     })
 }
-
+/**
+ * функция изменения статуса подзадачи
+ *@param {string} id - id позадачи
+ * @param {boolean} status - текущий статус
+ * */
 let editSubtaskStatus = function(id,status){
     if(status=='1'){
         $.ajax({
@@ -158,6 +196,10 @@ let editSubtaskStatus = function(id,status){
 
 }
 
+/**
+ * Функция изменения подзадачи
+ * @param {string} id - id подзадачи
+ * */
 let editSubtask = function(id){
     let task = prompt('Введите новую подзадачу');
     if (task===null){
@@ -179,6 +221,10 @@ let editSubtask = function(id){
 
 }
 
+/**
+ * функция изменения названия задачи
+ * @param {string} id - id задачи
+ * */
 let changeName = function(id){
     let name = prompt('Введи новое имя')
     if(name){
@@ -197,6 +243,10 @@ let changeName = function(id){
     }
 }
 
+/**
+ * функция преобразрвания логического значения в текст статуса задачи
+ * @param {boolean} status - статус
+ * */
 let statusRender = function(status){
     if(status === 0){
         return 'В процессе'
@@ -205,6 +255,11 @@ let statusRender = function(status){
     }
 }
 
+/**
+ * функция изменения статуса задачи
+ * @param {string} id - id задачи
+ * @param {boolean} status - текущий статус
+ * */
 let changeStatus = function(id,status){
     if (status == '1'){
         $.ajax({
@@ -233,10 +288,17 @@ let changeStatus = function(id,status){
     }
 }
 
+/**
+ * функция парсинга строки запроса
+ * */
 function getUrlVars()
 {
     return window.location.href.slice(window.location.href.indexOf('?')).split(/[&?]{1}[\w\d]+=/);
 }
+
+/**
+ * функция добавления задачи
+ * */
 function addTask() {
     let name = document.getElementById('name').value
     let task = document.getElementById('task').value

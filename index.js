@@ -9,6 +9,7 @@ const DB = require('./DB');
 
 const port = 3000;
 const  dir = __dirname
+const dirDoc = dir +'/out/'
 const dirPub = __dirname+'/public/'
 let db = new DB.DB;
 db.connect();
@@ -514,6 +515,14 @@ app.route('/task/addSubtask')
 // ---------------------------------------------------------------------------------------------------------------------
 app.get('/scripts/main.js',(req,res)=>{
     res.sendFile(dir+'/scripts/main.js')
+})
+
+app.get('/out/*',(req,res)=>{
+    res.sendFile(dir+req.url)
+})
+
+app.get('/doc',(req,res)=>{
+    res.redirect('/out/index.html')
 })
 
 app.get('*',(req,res)=>{
