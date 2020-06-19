@@ -8,6 +8,7 @@ app.use((req,res,next)=>{
     console.log(chalk.green(getTime())+' '+chalk.blue(req.method)+' '+chalk.red(req.url))
     next()
 })
+app.use();
 
 
 
