@@ -1,3 +1,10 @@
+#about
+CLOUD TASK
+
+это корманный TODO list на все случаи жизни
+
+[![buddy branch](https://app.buddy.works/romires2000/task2020/repository/branch/develop/badge.svg?token=a45a7566fc6fd650a1c783a77559a92485a1ef155ef624d43c664e31b6ae9d88 "buddy branch")](https://app.buddy.works/romires2000/task2020/repository/branch/develop)
+
 # Перед использованием 
 
 Установите:
