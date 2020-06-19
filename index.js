@@ -6,6 +6,8 @@ const cP = require('cookie-parser');
 const chalk = require('chalk');
 const sub = require('./sub.js');
 const DB = require('./DB');
+const swaggerJSD = require('swagger-jsdoc')
+const swaggerUI = require('swagger-ui-express')
 
 const port = 3000;
 const  dir = __dirname
@@ -14,10 +16,21 @@ const dirPub = __dirname+'/public/'
 let db = new DB.DB;
 db.connect();
 
-//  check = async function(){
-//     console.log(await db.get_user_tokenData(2));
-// }
-// check()
+const swaggerOptions = {
+    swaggerDefinition: {
+        info:{
+            title: 'CLOUD TASK',
+            description: 'CLOUD TODO list',
+            contact:{
+                name:'Roman Ghost',
+                email:"romires2000@gmail.com"
+            },
+            servers:'localhost:3000'
+        }
+    },
+    apis:["api.js"]
+}
+
 
 let app = express();
 app.use(cP())
@@ -28,7 +41,11 @@ app.use((req,res,next)=>{
     next()
 })
 
+const swaggerDocs = swaggerJSD(swaggerOptions)
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocs))
+
 // ---------------------------------------------------------------------------------------------------------------------
+
 app.route('/')
     .get(async (req,res)=>{
         if(req.cookies.id && req.cookies.token){
@@ -77,37 +94,42 @@ app.route('/login')
     })
     .post(async (req,res)=>{
         let login = req.body.login;
-        login = login.toLowerCase()
         let password = req.body.password;
-        let answer = await db.getUserInfo(login);
-        if(answer[0]!=undefined || answer==='' ){
-            let id = answer[0].id;
-            let salt = answer[0].salt;
-            password = sub.hashing(password+salt);
-            answer = await db.checkUserData(login,password);
-            if(answer[0]!=undefined){
-                let token = sub.hashing(id+sub.getTime());
-                answer = await db.setToken(token,id);
-                if(answer!=null || answer!=''){
-                    res.cookie('id',id);
-                    res.cookie('token',token);
-                    res.status(200)
-                    res.send('ok')
-                    res.end;
+        if(login && password){
+            login = login.toLowerCase()
+            let answer = await db.getUserInfo(login);
+            if(answer[0]!=undefined || answer==='' ){
+                let id = answer[0].id;
+                let salt = answer[0].salt;
+                password = sub.hashing(password+salt);
+                answer = await db.checkUserData(login,password);
+                if(answer[0]!=undefined){
+                    let token = sub.hashing(id+sub.getTime());
+                    answer = await db.setToken(token,id);
+                    if(answer!=null || answer!=''){
+                        res.cookie('id',id);
+                        res.cookie('token',token);
+                        res.status(200)
+                        res.send('ok')
+                        res.end;
+                    }else{
+                        res.status(400);
+                        res.send('error');
+                        res.end
+                    }
                 }else{
                     res.status(400);
-                    res.send('error');
+                    res.send('incorrect data');
                     res.end
                 }
             }else{
-                res.status(400);
-                res.send('incorrect data');
+                res.status(400)
+                res.send('user dont exist');
                 res.end
             }
-        }else{
+        }else {
             res.status(400)
-            res.send('user dont exist');
-            res.end
+            res.send('login or password undefined')
         }
     })
 app.route('/signup')
@@ -136,35 +158,39 @@ app.route('/signup')
     })
     .post(async (req,res)=>{
         let login = req.body.login;
-        login = login.toLowerCase()
         let pass = req.body.password1;
         let pass1 = req.body.password2;
-        if(pass!=pass1){
+        if(login && pass && pass1){
+            login = login.toLowerCase()
+            if(pass!=pass1){
                 res.status(400);
                 res.send('passwords not equal');
                 res.end
-        }else{
-            let answer = await db.getUserInfo(login)
-            if(answer[0] != undefined){
-                res.status(400);
-                res.send('this user exist');
-                res.end
             }else{
-                let salt = sub.hashing(sub.getTime());
-                pass = sub.hashing(pass+salt);
-                answer = await  db.signUpUser(login,pass,salt);
-                if(answer === undefined || answer===null || answer ===''){
-                    res.status(400)
-                    res.send('error');
-                    res.end;
+                let answer = await db.getUserInfo(login)
+                if(answer[0] != undefined){
+                    res.status(400);
+                    res.send('this user exist');
+                    res.end
                 }else{
-                    res.status(200);
-                    res.send('ok');
-                    res.end;
+                    let salt = sub.hashing(sub.getTime());
+                    pass = sub.hashing(pass+salt);
+                    answer = await  db.signUpUser(login,pass,salt);
+                    if(answer === undefined || answer===null || answer ===''){
+                        res.status(400)
+                        res.send('error');
+                        res.end;
+                    }else{
+                        res.status(200);
+                        res.send('ok');
+                        res.end;
+                    }
                 }
             }
+        }else{
+            res.status(400)
+            res.send('login or password undefined')
         }
-
     })
 
 app.route('/logout')

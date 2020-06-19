@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f73231a1-bb03-41b5-9c61-208bf108c88c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB.js" beforeDir="false" afterPath="$PROJECT_DIR$/DB.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sub.js" beforeDir="false" afterPath="$PROJECT_DIR$/sub.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -47,17 +43,18 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\work\task2020\test" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\work\task2020" />
       <recent name="C:\work\task2020\test" />
       <recent name="C:\work\task2020\public" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\work\task2020" />
+      <recent name="C:\work\task2020\test" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -75,7 +72,7 @@
       <workItem from="1592221355547" duration="14773000" />
       <workItem from="1592309473961" duration="19296000" />
       <workItem from="1592374239329" duration="9531000" />
-      <workItem from="1592515575485" duration="8343000" />
+      <workItem from="1592515575485" duration="17555000" />
     </task>
     <servers />
   </component>
