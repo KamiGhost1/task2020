@@ -42,7 +42,7 @@ let viewTasks = function (data,status) {
 
 /**
  * Функция перехода к просмотру и редактированию задачи
- * @param {string} id - id задачи
+ * @param {string} id - id пользователя
  * */
 let viewTask = function (id){
     window.location.href ='/task/edit?id='+id;

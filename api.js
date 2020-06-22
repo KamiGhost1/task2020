@@ -24,28 +24,115 @@
  *              description: login or password undefined
  * /signup:
  *  get:
- *      description:
  *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  *  post:
- *      description:
  *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  * /logout:
  *  get:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  * /task/get:
  *  get:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  *  post:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  * /task/add:
  *  get:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  *  post:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  *
  * /task/change:
  *  get:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  *  post:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  * /task/edit:
  *  get:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  *  post:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  * /task/getInfo:
  *  get:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  * /task/addSubtask:
  *  post:
+ *      responses:
+ *          '400':
+ *              description: error
+ *          '401':
+ *              description: non auth
+ *          '200':
+ *              description: ok
  * */
